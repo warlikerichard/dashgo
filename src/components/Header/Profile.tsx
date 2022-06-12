@@ -4,25 +4,29 @@ interface ProfileProps{
     name: string;
     email: string;
     avatar: string;
+    showProfileData?: boolean;
 }
 
-export function Profile(){
+export function Profile({name, email, avatar, showProfileData = true}: ProfileProps){
     return(
         <Flex align="center">
-                    <Box mr="4" textAlign="right">
-                        <Text>
-                            Warlike Richard
-                        </Text>
+                    {
+                        showProfileData &&
+                        (<Box mr="4" textAlign="right">
+                            <Text>
+                                {name}
+                            </Text>
 
-                        <Text color="gray.300" fontSize="sm">
-                            warlikerichard@hotmail.com
-                        </Text>
-                    </Box>
+                            <Text color="gray.300" fontSize="sm">
+                                {email}
+                            </Text>
+                        </Box>)
+                    }
 
                     <Avatar
                       size="md"
-                      name="Warlike Richard"
-                      src="https://github.com/warlikerichard.png" 
+                      name={name}
+                      src={avatar}
                       bgColor="transparent"
                       />
                 </Flex>

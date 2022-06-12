@@ -4,10 +4,12 @@ import { Sidebar } from '../components/Sidebar';
 import { ApexOptions } from 'apexcharts'
 
 import dynamic from "next/dynamic";
+import {  useState } from "react";
 
 const Chart = dynamic(() => import("react-apexcharts"), {
     ssr: false,
 })
+
 
 const options: ApexOptions = {
     chart:{
@@ -19,7 +21,7 @@ const options: ApexOptions = {
             enabled: false,
         },
 
-        foreColor: theme.colors.gray[500]
+        foreColor: theme.colors.gray[500],
     },
 
     grid:{
@@ -72,6 +74,11 @@ const series = [
 ];
 
 export default function Dashboard(){
+    const [viewCharts, setViewCharts] = useState(false)
+
+    setTimeout(() =>{
+        setViewCharts(true)
+    }, 1)
     return(
         <Flex direction="column" h="100vh">
             <Header/>
@@ -87,7 +94,7 @@ export default function Dashboard(){
 
                   <SimpleGrid flex="1" gap="4" minChildWidth="320px" alignItems="flex-start">
                       <Box
-                        p="8"
+                        p={["4", "6"]}
                         bg="gray.800"
                         borderRadius={8}
                         h="100%"
@@ -96,7 +103,7 @@ export default function Dashboard(){
                         <Text fontSize="lg" mb="4">
                             Inscritos da semana
                         </Text>
-                        <Chart options={options} series={series} type="area" height={160}/>
+                        {viewCharts && <Chart options={options} series={series} type="area" height={160}/>}
                       </Box>
 
                       <Box
@@ -109,7 +116,7 @@ export default function Dashboard(){
                         <Text fontSize="lg" mb="4">
                             Taxa de abertura
                         </Text>
-                        <Chart options={options} series={series} type="area" height={160}/>
+                        {viewCharts && <Chart options={options} series={series} type="area" height={160}/>}
                       </Box>
 
                   </SimpleGrid>
