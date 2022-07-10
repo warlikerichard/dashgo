@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { api } from '../api';
 
 type User = {
-    id: string;
+    id: number;
     name: string;
     email: string;
     createdAt: string;
@@ -37,5 +37,5 @@ export const getUsers : (page: number) => Promise<GetUsersResponse> = async (pag
 }
 
 export function useUsers(page: number){
-    return useQuery(['users', page], () => getUsers(page), {staleTime: 1000 * 5})
+    return useQuery(['users', page], () => getUsers(page), {staleTime: 1000 * 60 * 10})
 }
